@@ -19,4 +19,4 @@ total = order1.calculate_total()
 print(f"Total price: Rs{total}")
 
 #Genarate and print order summary
-print(order1.generate_order_summary())
+print(order1.generate_summary())
