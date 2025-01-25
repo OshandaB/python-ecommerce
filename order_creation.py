@@ -2,21 +2,40 @@ from customer import Customer
 from order import Order
 from product import Product
 
-#create a products
-product1 = Product("Phone", 34000, 10)
-product2 = Product("Laptop", 45000, 5)
+def get_product_details():
+    name = input("Enter product name: ")
+    price = float(input(f"Enter price for {name}: "))
+    quantity = int(input(f"Enter quantity available for {name}: "))
+    return Product(name, price, quantity)
 
-#create a customer
-customer1 = Customer("John", "Colombo", "0771234567")
+def get_customer_details():
+    name = input("Enter customer name: ")
+    address = input("Enter customer address: ")
+    phone = input("Enter customer phone number: ")
+    return Customer(name, address, phone)
 
-#create an order
-order1 = Order(customer1)
-order1.add_product(product1)
-order1.add_product(product2)
+print("Welcome to the E commerce!")
 
-#calculate the total price
-total = order1.calculate_total()
-print(f"Total price: Rs{total}")
+print("\n--- Customer Details ---")
+customer = get_customer_details()
 
-#Genarate and print order summary
-print(order1.generate_summary())
+products = []
+num_products = int(input("How many products would you like to add? "))
+for _ in range(num_products):
+    product = get_product_details()
+    products.append(product)
+
+order = Order(customer)
+
+print("\n--- Add Products to Order ---")
+for product in products:
+    print(f"Product: {product.name}, Price: Rs{product.price}, Available Quantity: {product.quantity}")
+    add_to_order = input(f"Would you like to add {product.name} to the order? (yes/no): ").strip().lower()
+    if add_to_order == "yes":
+        order.add_product(product)
+
+total = order.calculate_total()
+print(f"\nTotal price: Rs{total}")
+
+print("\n--- Order Summary ---")
+print(order.generate_summary())
